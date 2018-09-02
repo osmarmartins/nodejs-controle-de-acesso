@@ -5,7 +5,10 @@
 <h1 class="page-header">Relação de Usuários</h1>
 
 {% if isAuth %}
-<a href="/add" class="btn btn-outline-success" style="margin-bottom: 15px;">Novo Usuário</a>
+  <a href="/add" class="btn btn-outline-success" style="margin-bottom: 15px;">
+    <i class="fas fa-user-plus"></i>
+    Novo Usuário
+  </a>
 
 {% endif %}
 
@@ -17,24 +20,44 @@
     <tr>
       <th scope="col"></th>
       <th scope="col">#</th>
-      <th scope="col">Tarefa</th>
-      <th scope="col">Descrição</th>
-      <th scope="col">Operações</th>
+      <th scope="col">Usuário</th>
+      <th scope="col">Login</th>
+      <th scope="col">e-mail</th>
+      <th scope="col">Ativo</th>
+      <th scope="col">
+        {% if isAuth %}
+          Operações
+        {% endif %}
+      </th>
     </tr>
   </thead>
   <tbody>
 
-  {% for tarefa in tarefas %}
+  {% for usuario in usuarios %}
     <tr>
       <th scope="row"></th>
-      <td>{{tarefa.id}}</td>
-      <td>{{tarefa.titulo}}</td>
-      <td>{{tarefa.descricao}}</td>
+      <td>{{usuario.id_usuario}}</td>
+      <td>{{usuario.nome}}</td>
+      <td>{{usuario.login}}</td>
+      <td>{{usuario.email}}</td>
+      <td>
+        {% if usuario.ativo==1 %}
+          <i class="fas fa-check-circle text-success"></i>
+        {% else %}
+          <i class="fas fa-times-circle text-danger"></i>
+        {% endif %}
+      </td>
       <td>
         {% if isAuth %}
           <p>
-            <a href="/edit/{{tarefa.id}}" class="btn btn-outline-primary">Editar</a>
-            <button class="btn btn-outline-danger" onClick="excluir({{tarefa.id}})">Excluir</button>
+            <a href="/edit/{{usuario.id_usuario}}" class="btn btn-outline-primary">
+              <i class="fas fa-pencil-alt"></i>
+              Editar
+            </a>
+            <button class="btn btn-outline-danger" onClick="excluir({{usuario.id_usuario}})">
+                <i class="fas fa-trash-alt"></i>
+                Excluir
+            </button>
           </p>
         {% endif %}
       </td>
@@ -47,30 +70,27 @@
 </div>
 
 <script>
-function excluir(id) {
-  const r = confirm("Tem certeza que deseja excluir este registro?");
+  function excluir(id) {
+    const r = confirm("Tem certeza que deseja excluir este registro?");
 
-  if (r) {
+    if (r) {
 
-    const form = document.createElement("form");
-    form.setAttribute("method", "post");
-    form.setAttribute("action", "/delete/" + id);
+      const form = document.createElement("form");
+      form.setAttribute("method", "post");
+      form.setAttribute("action", "/delete/" + id);
 
-    const deleteInput = document.createElement("input");
-    deleteInput.setAttribute("type", "hidden");
-    deleteInput.setAttribute("name", "_method");
-    deleteInput.setAttribute("value", "delete");
+      const deleteInput = document.createElement("input");
+      deleteInput.setAttribute("type", "hidden");
+      deleteInput.setAttribute("name", "_method");
+      deleteInput.setAttribute("value", "delete");
 
-    form.appendChild(deleteInput);
+      form.appendChild(deleteInput);
 
-    document.body.appendChild(form);
-    form.submit();
+      document.body.appendChild(form);
+      form.submit();
 
+    }
   }
-}
-
-
-
 </script>
 
 {% endblock %}

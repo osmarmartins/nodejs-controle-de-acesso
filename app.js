@@ -13,7 +13,7 @@ require('./passport');
 var expressNunjucks = require('express-nunjucks');
 
 var register = require('./routes/register');
-var tasks = require('./routes/tasks');
+var users = require('./routes/users');
 
 var app = express();
 
@@ -48,7 +48,7 @@ app.use(methodOverride(function (req, res) {
 }));
 
 app.use('/', register);
-app.use('/', tasks);
+app.use('/', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

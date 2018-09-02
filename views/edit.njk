@@ -2,24 +2,50 @@
 
 {% block pagina %}
 
-<h1 class="page-header">Edição de Tarefas</h1>
-<div class="col-md-6">
-  <form action="/edit/{{tarefa.id}}" method="post">
-    <input type="hidden" name="_method" value="put">
-    <div class="form-group">
-      <label for="titulo">Título</label>
-      <input type="text" class="form-control" name="titulo" id="titulo" value="{{tarefa.titulo}}">
-    </div>
-    <div class="form-group">
-      <label for="descricao">Descrição</label>
-      <input type="text" class="form-control" name="descricao" id="descricao" value="{{tarefa.descricao}}">
-    </div>
+  <h1 class="page-header">Edição de Usuário</h1>
+  <div class="col-md-6">
+    <form action="/edit/{{usuario.id_usuario}}" method="post">
+      <div class="form-group">
+        <label for="nome">Nome</label>
+        <input type="text" class="form-control" name="nome" id="nome" value={{usuario.nome}}>
+      </div>
+  
+      <div class="form-group">
+        <label for="login">Login</label>
+        <input type="text" class="form-control" name="login" id="login" value={{usuario.login}}>
+      </div>
+  
+      <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" class="form-control" name="email" id="email" value={{usuario.email}}>
+      </div>
 
-    <button type="submit" class="btn btn-primary">Salvar</button>
-    <a href="/" class="btn btn-default">Voltar</a>
-  </form>
-</div>
-
-
+<!--      
+      <div class="form-group">
+          <label for="senha">Senha</label>
+          <input type="password" class="form-control" name="senha" id="senha" value={{usuario.senha}}>
+      </div>
+      
+      <div class="form-group">
+          <label for="confirmaSenha">Confirmar Senha</label>
+          <input type="password" class="form-control" name="confirmaSenha" id="confirmaSenha" value={{usuario.confirmaSenha}}>
+      </div>
+-->  
+      <div class="form-group">
+        <!-- input type="text" class="form-control" name="ativo" id="ativo" value={{usuario.ativo}} -->
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" id="_ativo" name="_ativo" {{_ativo}}>
+          <label for="_ativo" class="form-check-label">Ativo</label>
+        </div>
+      </div>
+  
+      <input type="hidden" name="_method" value="put">
+      
+      <button type="submit" class="btn btn-primary">Salvar</button>
+      <a href="/password/{{usuario.id_usuario}}" class="btn btn-secondary">Alterar Senha</a>
+      <a href="/" class="btn btn-secondary">Voltar</a>
+      
+    </form>
+  </div>
 
 {% endblock %}

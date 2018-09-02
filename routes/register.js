@@ -3,6 +3,7 @@ var router = express.Router();
 var passport = require('passport');
 var isNotAuth = require('../middlewares/authorize').isNotAuth;
 var db = require('../db');
+var bcrypt = require('bcrypt');
 
 router.get('/login', isNotAuth, (req ,res ,next)=>{
   res.render('login');
@@ -21,16 +22,30 @@ router.get('/logout', (req, res, next)=> {
 });
 
 router.get('/register', isNotAuth, (req ,res ,next)=>{
-  res.render('register');
+  res.render('add', {
+    isAuth: req.isAuthenticated(),
+    action: '/register'
+  });
 });
 
 router.post('/register', isNotAuth, (req,res,next)=>{
-  db("usuarios").insert(req.body).then((ids) => {
-      passport.authenticate('local')(req, res, function () {
-        res.redirect('/');
-      });
 
+  // TODO chamar método post do route /add
+
+  if (req.body.senha !== req.body.confirmaSenha){
+    res.render('error', {
+      error: 'Senhas não conferem!'
+    });
+    return;
+  }
+
+  req.body.senha = bcrypt.hashSync(req.body.senha, 10);
+  delete req.body.confirmaSenha;
+
+  db("login_usuario").insert(req.body).then((ids) => {
+    res.redirect('/');
   },next)
+
 });
 
 module.exports = router;

@@ -4,11 +4,12 @@ var db = knex({
   client: 'mysql',
   connection: {
     host : 'us-cdbr-iron-east-01.cleardb.net',
-    user : 'b3df734847ac39',
-    password: '16161f92',
-    database : 'heroku_19021ef47f00f90'
+    user : 'bf016c61466a71',
+    password: 'c444a7c0',
+    database : 'heroku_baf02b0fa31f705'
   }
 });
+// mysql://bf016c61466a71:c444a7c0@us-cdbr-iron-east-01.cleardb.net/heroku_baf02b0fa31f705?reconnect=true
 
 /*
 var db = knex({

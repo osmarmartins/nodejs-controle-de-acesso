@@ -1,1 +1,16 @@
-{{error}}
+{% extends "layout.njk" %}
+
+{% block pagina %}
+
+    <section class="jumbotron text-center">
+        OOPS! Foi encontrado um erro.
+        <p>
+            {{error}}
+        </p>
+
+        <a href="javascript:history.back();" class="btn btn-info">Voltar</a>
+
+    </section>
+
+{% endblock %}
+
