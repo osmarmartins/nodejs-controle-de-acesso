@@ -1,0 +1,76 @@
+{% extends "layout.njk" %}
+
+{% block pagina %}
+
+<h1 class="page-header">Relação de Usuários</h1>
+
+{% if isAuth %}
+<a href="/add" class="btn btn-outline-success" style="margin-bottom: 15px;">Novo Usuário</a>
+
+{% endif %}
+
+<div class="row">
+
+
+<table class="table table-striped">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">#</th>
+      <th scope="col">Tarefa</th>
+      <th scope="col">Descrição</th>
+      <th scope="col">Operações</th>
+    </tr>
+  </thead>
+  <tbody>
+
+  {% for tarefa in tarefas %}
+    <tr>
+      <th scope="row"></th>
+      <td>{{tarefa.id}}</td>
+      <td>{{tarefa.titulo}}</td>
+      <td>{{tarefa.descricao}}</td>
+      <td>
+        {% if isAuth %}
+          <p>
+            <a href="/edit/{{tarefa.id}}" class="btn btn-outline-primary">Editar</a>
+            <button class="btn btn-outline-danger" onClick="excluir({{tarefa.id}})">Excluir</button>
+          </p>
+        {% endif %}
+      </td>
+    </tr>
+  {% endfor %}
+
+  </tbody>
+</table>
+
+</div>
+
+<script>
+function excluir(id) {
+  const r = confirm("Tem certeza que deseja excluir este registro?");
+
+  if (r) {
+
+    const form = document.createElement("form");
+    form.setAttribute("method", "post");
+    form.setAttribute("action", "/delete/" + id);
+
+    const deleteInput = document.createElement("input");
+    deleteInput.setAttribute("type", "hidden");
+    deleteInput.setAttribute("name", "_method");
+    deleteInput.setAttribute("value", "delete");
+
+    form.appendChild(deleteInput);
+
+    document.body.appendChild(form);
+    form.submit();
+
+  }
+}
+
+
+
+</script>
+
+{% endblock %}
