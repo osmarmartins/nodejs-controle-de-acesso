@@ -14,7 +14,7 @@
     "express": "^4.16.3",
     "express-nunjucks": "^2.1.2",
     "express-session": "^1.15.1",
-    "knex": "^0.12.6",
+    "knex": "^0.19.5",
     "method-override": "^2.3.7",
     "morgan": "^1.9.0",
     "mysql": "^2.13.0",
